@@ -1,0 +1,169 @@
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #6ec6f5 0%, #b8e8ff 50%, #a8dfa0 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      overflow: hidden;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .cloud {
+      position: absolute;
+      background: #ffffffd0;
+      border-radius: 50px;
+      filter: blur(2px);
+      animation: floatCloud linear infinite;
+    }
+    @keyframes floatCloud {
+      from { transform: translateX(-260px); }
+      to   { transform: translateX(110vw); }
+    }
+
+    .ground {
+      width: 100%;
+      height: 90px;
+      background: linear-gradient(180deg, #5aac30 0%, #357a18 100%);
+      border-radius: 55% 55% 0 0 / 28px 28px 0 0;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+
+    .garden {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      padding: 0 1vw;
+      z-index: 3;
+    }
+
+    .flower-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-origin: bottom center;
+      animation: growUp 1.4s cubic-bezier(.34,1.46,.64,1) both;
+      flex-shrink: 0;
+    }
+    @keyframes growUp {
+      from { transform: scaleY(0); opacity: 0; }
+      to   { transform: scaleY(1); opacity: 1; }
+    }
+
+    .head {
+      position: relative;
+      animation: sway 3.5s ease-in-out infinite;
+    }
+    @keyframes sway {
+      0%,100% { transform: rotate(-5deg); }
+      50%      { transform: rotate( 5deg); }
+    }
+
+    .sunflower-canvas {
+      display: block;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,0.28));
+    }
+
+    .stem {
+      width: 18px;
+      background: linear-gradient(to right, #2a6120, #56c244, #2a6120);
+      border-radius: 9px;
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: inset -3px 0 6px rgba(0,0,0,0.18);
+    }
+
+    .message {
+      position: absolute;
+      top: 5vh;
+      text-align: center;
+      z-index: 10;
+      animation: fadeSlide 2s ease both;
+      pointer-events: none;
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .message h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0,0,0,.22), 0 1px 0 #e6a00088;
+    }
+    .message p {
+      margin-top: .5rem;
+      font-size: clamp(.85rem, 2.2vw, 1.2rem);
+      color: #ffffffcc;
+      font-weight: 300;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .butterfly {
+      position: absolute;
+      width: 36px; height: 18px;
+      animation: flyPath linear infinite;
+      z-index: 20;
+    }
+    .wing {
+      position: absolute;
+      width: 18px; height: 18px;
+      border-radius: 50% 0;
+      opacity: .88;
+      animation: flapWing .38s ease-in-out infinite alternate;
+    }
+    .wing.l { left:0;  background: #FFD700; transform-origin: right center; }
+    .wing.r { right:0; background: #FF8C00; transform-origin: left center; animation-direction: alternate-reverse; }
+    @keyframes flapWing {
+      from { transform: rotateY(0deg); }
+      to   { transform: rotateY(72deg); }
+    }
+    @keyframes flyPath {
+      0%   { transform: translate(0,0); }
+      20%  { transform: translate(18vw,-10vh); }
+      45%  { transform: translate(42vw, 5vh); }
+      70%  { transform: translate(70vw,-7vh); }
+      100% { transform: translate(108vw, 3vh); }
+    }
+
+    /* ── POLAROIDS ── */
+    .polaroid-container { position:fixed; inset:0; pointer-events:none; z-index:50; overflow:hidden; }
+    .polaroid {
+      position: absolute;
+      background: #fff;
+      padding: 10px 10px 38px 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.32), 0 2px 8px rgba(0,0,0,0.18);
+      border-radius: 3px;
+      opacity: 0;
+      animation: polaroidFall linear forwards;
+      pointer-events: none;
+    }
+    .polaroid img {
+      width: 160px;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      border-radius: 1px;
+    }
+    .polaroid .pol-label {
+      text-align: center;
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      color: #888;
+      margin-top: 6px;
+      letter-spacing: .08em;
+    }
+    @keyframes polaroidFall {
+      0%   { opacity:0; transform: translateY(-180px) rotate(var(--rot)); }
+      8%   { opacity:1; }
+      80%  { opacity:1; }
+      100% { opacity:0; transform: translateY(105vh) rotate(var(--rot)); }
+    }
